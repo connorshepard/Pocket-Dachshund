@@ -1,11 +1,20 @@
-var PocketDachshund = PocketDachshund || {};
- 
-PocketDachshund.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '');
- 
-PocketDachshund.game.state.add('Boot', PocketDachshund.Boot);
-//uncomment these as we create them through the tutorial
-//PocketDachshund.game.state.add('Preload', PocketDachshund.Preload);
-//PocketDachshund.game.state.add('MainMenu', PocketDachshund.MainMenu);
-//PocketDachshund.game.state.add('Game', PocketDachshund.Game);
- 
-PocketDachshund.game.state.start('Boot');
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game'), Main = function () {};
+
+Main.prototype = {
+
+  preload: function () {
+    game.load.image('bg',    'assets/images/splashbg');
+    game.load.image('loading',  'assets/images/loading.png');
+    game.load.image('brand',    'assets/images/logo.png');
+    game.load.script('splash',  'states/Splash.js');
+  },
+
+  create: function () {
+    game.state.add('splash', Splash);
+    game.state.start('Splash');
+  }
+
+};
+
+game.state.add('Main', Main);
+game.state.start('Main');
